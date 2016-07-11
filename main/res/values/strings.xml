@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My First Project</string>
+    <string name="app_name">Unscramble</string>
     <string name="edit_message">My first Message</string>
     <string name="button_label1">1 </string>
     <string name="button_label2">2</string>
@@ -11,8 +11,8 @@
     <string name="button_label8">8</string>
     <string name="button_label0">0</string>
     <string name="button_label">LABEL</string>
+    <string name="action_random">Random</string>
+    <string name="action_secret">Secret</string>
     <string name="action_back">Back</string>
-    <string name="action_exit">Exit</string>
-    <string name="action_settings">Settings</string>
 
 </resources>

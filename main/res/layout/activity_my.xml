@@ -27,16 +27,16 @@
             android:layout_height="150dp"
             android:text="@string/button_label0"
             android:onClick="click0"
-            android:background="@drawable/rsz_dotalogo1"
             />
+            %android:background="@drawable/rsz_dotalogo1"
         <ImageButton
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:text="@string/button_label1"
-            android:background="@drawable/rsz_dotalogo4"
             android:onClick="click3"
             />
+            %android:background="@drawable/rsz_dotalogo4"
 
         <!--
         android:layout_alignParentRight="true"
@@ -46,15 +46,15 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:text="@string/button_label2"
-            android:background="@drawable/rsz_dotalogo7"
             android:onClick="click6"
             />
+            %android:background="@drawable/rsz_dotalogo7"
         <Button
             android:id="@+id/button_settings"
 
             android:layout_width="125dp"
             android:layout_height="50dp"
-            android:text="@string/action_back"
+            android:text="@string/action_random"
             android:onClick="clicksettings1"
             />
 
@@ -74,30 +74,31 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:text="@string/button_label3"
-            android:background="@drawable/rsz_dotalogo2"
             android:onClick="click1"
             />
+            %android:background="@drawable/rsz_dotalogo2"
         <ImageButton
             android:id="@+id/button4"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:text="@string/button_label4"
-            android:background="@drawable/rsz_dotalogo5"
             android:onClick="click4"
             />
+            %android:background="@drawable/rsz_dotalogo5"
         <ImageButton
             android:id="@+id/button7"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:text="@string/button_label5"
-            android:background="@drawable/greyback"
             android:onClick="click7"
             />
+            %android:background="@drawable/greyback"
         <Button
             android:id="@+id/button_settings2"
             android:layout_width="125dp"
             android:layout_height="50dp"
-            android:text="@string/action_exit"
+            android:text="@string/action_secret"
+            android:onClick="clicksettings2"
             />
     </LinearLayout>
 
@@ -113,30 +114,31 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:text="@string/button_label6"
-            android:background="@drawable/rsz_dotalogo3"
             android:onClick="click2"
             />
+            %android:background="@drawable/rsz_dotalogo3"
         <ImageButton
             android:id="@+id/button5"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:text="@string/button_label7"
-            android:background="@drawable/rsz_dotalogo6"
             android:onClick="click5"
             />
+            %android:background="@drawable/rsz_dotalogo6"
         <ImageButton
             android:id="@+id/button8"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:text="@string/button_label8"
-            android:background="@drawable/rsz_dotalogo8"
             android:onClick="click8"
             />
+            %android:background="@drawable/rsz_dotalogo8"
         <Button
             android:id="@+id/button_settings3"
             android:layout_width="125dp"
             android:layout_height="50dp"
-            android:text="@string/action_settings"
+            android:text="@string/action_back"
+            android:onClick="clicksettings3"
         />
     </LinearLayout>
 

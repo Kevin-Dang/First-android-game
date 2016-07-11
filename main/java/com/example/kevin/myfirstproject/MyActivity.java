@@ -19,19 +19,45 @@ public class MyActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
     int emptyPos;
-    public static int[] curimg = new int[] {0,1,2,3,4,5,6,8,7};
+    public static int[] curimg;
     public static int[] winner = new int[] {0,1,2,3,4,5,6,7,8};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        curimg[0]=0;
-        winner[0]=0;
+
+        initialize();
+    }
+    public void initialize(){
         emptyPos=7;
+        curimg = new int[] {6,4,7,3,5,1,0,8,2};
 
+        setImage(getImageButton(0),6);
+        setImage(getImageButton(1),4);
+        setImage(getImageButton(2),7);
+        setImage(getImageButton(3),3);
+        setImage(getImageButton(4),5);
+        setImage(getImageButton(5),1);
+        setImage(getImageButton(6),0);
+        setImage(getImageButton(7),9);
+        setImage(getImageButton(8),2);
+        randomizer();
 
+    }
+    public void secret(){
+        emptyPos=7;
+        curimg = new int[] {0,1,2,3,4,5,6,8,7};
+
+        setImage(getImageButton(0),0);
+        setImage(getImageButton(1),1);
+        setImage(getImageButton(2),2);
+        setImage(getImageButton(3),3);
+        setImage(getImageButton(4),4);
+        setImage(getImageButton(5),5);
+        setImage(getImageButton(6),6);
+        setImage(getImageButton(7),9);
+        setImage(getImageButton(8),7);
     }
     public void click0(View view){
         clickhandler(0);
@@ -64,10 +90,17 @@ public class MyActivity extends AppCompatActivity {
     public void clicksettings1(View view){
         randomizer();
     }
+    public void clicksettings2(View view){
+        secret();
+    }
+    public void clicksettings3(View view){
+        Intent goback = new Intent(this,TitleScreen.class);
+        startActivity(goback);
+    }
     public void randomizer(){
         int randint=0;
         int randbutton = 0;
-        for (int a =0; a<25;a++){
+        for (int a =0; a<40;a++){
             randint = (int)(Math.random()*4);
             switch(randint){
                 case 0: randbutton = emptyPos-3;break;
@@ -90,6 +123,10 @@ public class MyActivity extends AppCompatActivity {
             swapimages(pos);
             if(Arrays.equals(winner,curimg)){
                 /*win();*/
+                Intent winIntent = new Intent(this,DisplayWinner.class);
+                winIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(winIntent);
+                System.out.println("WINNER    ");
             }
         }
     }
@@ -158,13 +195,5 @@ public class MyActivity extends AppCompatActivity {
         ImageButton imgbut = (ImageButton) findViewById(R.id.button4);
         imgbut.setImageResource(R.drawable.youwin);
     }
-    /*
 
-    public void sendMessage(View view){
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editext = (EditText) findViewById(R.id.edit_message);
-        String message = editext.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE,message);
-        startActivity(intent);
-    }*/
 }

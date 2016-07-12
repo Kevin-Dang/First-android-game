@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kevin.myfirstproject">
+    package="com.scrambler.kevin.myfirstproject">
 
     <application
         android:allowBackup="true"
@@ -9,10 +9,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
-        <activity android:name=".MyActivity">
+        <activity android:name="com.scrambler.kevin.myfirstproject.MyActivity">
         </activity>
-        <activity android:name=".DisplayWinner" />
-        <activity android:name=".TitleScreen">
+        <activity android:name="com.scrambler.kevin.myfirstproject.DisplayWinner" />
+        <activity android:name="com.scrambler.kevin.myfirstproject.TitleScreen">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

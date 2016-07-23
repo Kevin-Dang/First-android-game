@@ -1,20 +1,35 @@
 package com.scrambler.kevin.myfirstproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import com.scrambler.kevin.myfirstproject.R;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
-public class MyActivity extends AppCompatActivity {
-    ImageButton imgButton;
 
-    public final static String EXTRA_MESSAGE = "com.mycompany.myfirstapp.MESSAGE";
-    int emptyPos;
-    public static int[] curimg;
+public class MyActivity extends AppCompatActivity {
+
+    // Best values for size of each image piece
+    public int height;
+    public int width;
+
+    public Bitmap bm0, bm1, bm2, bm3,bm4,bm5,bm6,bm7,bm8,bmGrey;
+
+    //Location of the empty piece
+    public int emptyPos;
+
+
+    public static int[] curimg; //current image
     public static int[] winner = new int[] {0,1,2,3,4,5,6,7,8};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,26 +39,60 @@ public class MyActivity extends AppCompatActivity {
 
         initialize();
     }
+
+    public void testing(){
+
+    }
+
+    //Sets up the image variables and sets up the game
     public void initialize(){
         emptyPos=7;
         curimg = new int[] {6,4,7,3,5,1,0,8,2};
 
-        setImage(getImageButton(0),6);
-        setImage(getImageButton(1),4);
-        setImage(getImageButton(2),7);
-        setImage(getImageButton(3),3);
-        setImage(getImageButton(4),5);
-        setImage(getImageButton(5),1);
-        setImage(getImageButton(6),0);
-        setImage(getImageButton(7),9);
-        setImage(getImageButton(8),2);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE); // the results will be higher than using the activity context object or the getWindowManager() shortcut
+        wm.getDefaultDisplay().getMetrics(displayMetrics);
+        width = (displayMetrics.widthPixels)/3;
+        height = (displayMetrics.heightPixels)*224/1000;
+
+        Bitmap im1 = BitmapFactory.decodeResource(getResources(), R.drawable.rsz_dotalogo1);
+        Bitmap im2 = BitmapFactory.decodeResource(getResources(), R.drawable.rsz_dotalogo2);
+        Bitmap im3 = BitmapFactory.decodeResource(getResources(), R.drawable.rsz_dotalogo3);
+        Bitmap im4 = BitmapFactory.decodeResource(getResources(), R.drawable.rsz_dotalogo4);
+        Bitmap im5 = BitmapFactory.decodeResource(getResources(), R.drawable.rsz_dotalogo5);
+        Bitmap im6 = BitmapFactory.decodeResource(getResources(), R.drawable.rsz_dotalogo6);
+        Bitmap im7 = BitmapFactory.decodeResource(getResources(), R.drawable.rsz_dotalogo7);
+        Bitmap im8 = BitmapFactory.decodeResource(getResources(), R.drawable.rsz_dotalogo8);
+        Bitmap imGrey = BitmapFactory.decodeResource(getResources(), R.drawable.greyback);
+
+        bm1 = Bitmap.createScaledBitmap(im1, width, height, true);
+        bm2 = Bitmap.createScaledBitmap(im2, width, height, true);
+        bm3 = Bitmap.createScaledBitmap(im3, width, height, true);
+        bm4 = Bitmap.createScaledBitmap(im4, width, height, true);
+        bm5 = Bitmap.createScaledBitmap(im5, width, height, true);
+        bm6 = Bitmap.createScaledBitmap(im6, width, height, true);
+        bm7 = Bitmap.createScaledBitmap(im7, width, height, true);
+        bm8 = Bitmap.createScaledBitmap(im8, width, height, true);
+        bmGrey = Bitmap.createScaledBitmap(imGrey, width, height, true);
+
+        //Sets up the values and randomizes moves
+        getImageButton(0).setImageBitmap(bm7);
+        getImageButton(1).setImageBitmap(bm5);
+        getImageButton(2).setImageBitmap(bm8);
+        getImageButton(3).setImageBitmap(bm4);
+        getImageButton(4).setImageBitmap(bm6);
+        getImageButton(5).setImageBitmap(bm2);
+        getImageButton(6).setImageBitmap(bm1);
+        getImageButton(7).setImageBitmap(bmGrey);
+        getImageButton(8).setImageBitmap(bm3);
         randomizer();
 
     }
+
+    //Almost win function/button
     public void secret(){
         emptyPos=7;
         curimg = new int[] {0,1,2,3,4,5,6,8,7};
-
         setImage(getImageButton(0),0);
         setImage(getImageButton(1),1);
         setImage(getImageButton(2),2);
@@ -54,6 +103,8 @@ public class MyActivity extends AppCompatActivity {
         setImage(getImageButton(7),9);
         setImage(getImageButton(8),7);
     }
+
+    //Click listener
     public void click0(View view){
         clickhandler(0);
     }
@@ -81,7 +132,6 @@ public class MyActivity extends AppCompatActivity {
     public void click8(View view){
         clickhandler(8);
     }
-
     public void clicksettings1(View view){
         randomizer();
     }
@@ -92,10 +142,13 @@ public class MyActivity extends AppCompatActivity {
         Intent goback = new Intent(this,TitleScreen.class);
         startActivity(goback);
     }
+
+    //Random
     public void randomizer(){
         int randint=0;
         int randbutton = 0;
         for (int a =0; a<40;a++){
+            //Reduce the moves to 4, the directions from the empty space
             randint = (int)(Math.random()*4);
             switch(randint){
                 case 0: randbutton = emptyPos-3;break;
@@ -111,8 +164,8 @@ public class MyActivity extends AppCompatActivity {
 
     public void clickhandler (int pos){
         ImageButton img= (ImageButton) findViewById(R.id.button0);
-        /*img.getTag(R.drawable.dotalogo2);*/
-        /*img.getTag();*/
+        //Only works if move is valid/ if button pressed is above,below,left,right
+        //of the grey space
         if (Math.abs(pos- emptyPos) ==3||
                 ((pos/ 3)==(emptyPos/ 3) && Math.abs(pos-emptyPos)==1)){
             swapimages(pos);
@@ -132,24 +185,12 @@ public class MyActivity extends AppCompatActivity {
         int imagenumber = curimg[pos];
         ImageButton imgbut1=getImageButton(pos);
         ImageButton imgbut2=getImageButton(emptyPos);
-  /*
-        LinearLayout.LayoutParams params1 = (LinearLayout.LayoutParams) imgbut1.getLayoutParams();
-        params1.height = 450;
-        params1.width = 500;
-        imgbut1.setLayoutParams(params1);
 
-        LinearLayout.LayoutParams params2 = (LinearLayout.LayoutParams) imgbut2.getLayoutParams();
-        params1.height = 450;
-        params1.width = 500;
-        imgbut2.setLayoutParams(params2);
-*/
         setImage(imgbut1, 9);
         setImage(imgbut2, imagenumber);
         curimg[pos] = 8;
         curimg[emptyPos]=imagenumber;
         emptyPos = pos;
-        System.out.println("Pos:" + pos);
-        System.out.println("EMpty: " + emptyPos);
 
 
     }
@@ -171,19 +212,17 @@ public class MyActivity extends AppCompatActivity {
 
     public void setImage(ImageButton img, int index){
         switch(index){
-            case 0: img.setImageResource(R.drawable.rsz_dotalogo1); break;
-            case 1: img.setImageResource(R.drawable.rsz_dotalogo2);break;
-            case 2: img.setImageResource(R.drawable.rsz_dotalogo3);break;
-            case 3: img.setImageResource(R.drawable.rsz_dotalogo4);break;
-            case 4: img.setImageResource(R.drawable.rsz_dotalogo5);break;
-            case 5: img.setImageResource(R.drawable.rsz_dotalogo6);break;
-            case 6: img.setImageResource(R.drawable.rsz_dotalogo7);break;
-            case 7: img.setImageResource(R.drawable.rsz_dotalogo8);break;
-            /*case 8: index=8;img.setImageResource(R.drawable.dotalogo9);*/
-            case 9: img.setImageResource(R.drawable.greyback);break;
-            default: img.setImageResource(R.drawable.dota_logo);break;
-
-        }
+            case 0: img.setImageBitmap(bm1); break;
+            case 1: img.setImageBitmap(bm2);break;
+            case 2: img.setImageBitmap(bm3);break;
+            case 3: img.setImageBitmap(bm4);break;
+            case 4: img.setImageBitmap(bm5);break;
+            case 5: img.setImageBitmap(bm6);break;
+            case 6: img.setImageBitmap(bm7);break;
+            case 7: img.setImageBitmap(bm8);break;
+            case 9: img.setImageBitmap(bmGrey);break;
+            default: img.setImageBitmap(bmGrey);break;
+              }
     }
     public void win(){
         boolean yes = true;
